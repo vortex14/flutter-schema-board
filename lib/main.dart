@@ -17,14 +17,16 @@ class MyApp extends StatelessWidget {
       showPerformanceOverlay: false,
       title: 'Diagram editor',
       initialRoute: '/',
+      // Widget: SimpleDemo(),
       routes: {
-        '/': (context) => HomeScreen(),
-        '/editor': (context) => SimpleDemo(),
-        '/pub_example': (context) => PubDemo(),
-        '/ports': (context) => PortDemo(),
-        '/hierarchical': (context) => HierarchicalDemo(),
-        '/complex': (context) => ComplexDemo(),
-        '/grid': (context) => GridDemo(),
+        // '/': (context) => HomeScreen(),
+        '/': (context) => SimpleDemo(),
+        // '/editor': (context) => SimpleDemo(),
+        // '/pub_example': (context) => PubDemo(),
+        // '/ports': (context) => PortDemo(),
+        // '/hierarchical': (context) => HierarchicalDemo(),
+        // '/complex': (context) => ComplexDemo(),
+        // '/grid': (context) => GridDemo(),
       },
     );
   }
