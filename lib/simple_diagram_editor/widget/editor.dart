@@ -11,8 +11,8 @@ class SimpleDemoEditor extends StatefulWidget {
 }
 
 class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
-  DiagramEditorContext diagramEditorContext;
-  DiagramEditorContext diagramEditorContextMiniMap;
+  DiagramEditorContext? diagramEditorContext;
+  DiagramEditorContext? diagramEditorContextMiniMap;
 
   MyPolicySet myPolicySet = MyPolicySet();
   MiniMapPolicySet miniMapPolicySet = MiniMapPolicySet();
@@ -27,7 +27,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
       policySet: myPolicySet,
     );
     diagramEditorContextMiniMap = DiagramEditorContext.withSharedModel(
-        diagramEditorContext,
+        diagramEditorContext!,
         policySet: miniMapPolicySet);
 
     super.initState();
@@ -47,7 +47,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                 child: Padding(
                   padding: EdgeInsets.all(16),
                   child: DiagramEditor(
-                    diagramEditorContext: diagramEditorContext,
+                    diagramEditorContext: diagramEditorContext!,
                   ),
                 ),
               ),
@@ -69,7 +69,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                             width: 2,
                           )),
                           child: DiagramEditor(
-                            diagramEditorContext: diagramEditorContextMiniMap,
+                            diagramEditorContext: diagramEditorContextMiniMap!,
                           ),
                         ),
                       ),
@@ -81,7 +81,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                         });
                       },
                       child: Container(
-                        color: Colors.grey[300],
+                        color: Colors.grey[300]!,
                         child: Padding(
                           padding: EdgeInsets.all(4),
                           child: Text(isMiniMapVisible
@@ -109,7 +109,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           setState(() {
                             isOptionsVisible = !isOptionsVisible;
                           });
-                        },
+                        }, tooltip: '',
                       ),
                       SizedBox(width: 8),
                       Visibility(
@@ -233,7 +233,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           });
                         },
                         child: Container(
-                          color: Colors.grey[300],
+                          color: Colors.grey[300]!,
                           child: Padding(
                             padding: EdgeInsets.all(4),
                             child:

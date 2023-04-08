@@ -6,8 +6,8 @@ class BeanRightBody extends StatelessWidget {
   final ComponentData componentData;
 
   const BeanRightBody({
-    Key key,
-    this.componentData,
+    Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class BeanRightPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   BeanRightPainter({
     this.color = Colors.grey,
@@ -68,20 +68,20 @@ class BeanRightPainter extends CustomPainter {
   Path componentPath() {
     Path path = Path();
     path.moveTo(0, 0);
-    path.lineTo(4 * componentSize.width / 5, 0);
+    path.lineTo(4 * componentSize!.width / 5, 0);
     path.quadraticBezierTo(
-      componentSize.width,
-      componentSize.height / 6,
-      componentSize.width,
-      componentSize.height / 2,
+      componentSize!.width,
+      componentSize!.height / 6,
+      componentSize!.width,
+      componentSize!.height / 2,
     );
     path.quadraticBezierTo(
-      componentSize.width,
-      5 * componentSize.height / 6,
-      4 * componentSize.width / 5,
-      componentSize.height,
+      componentSize!.width,
+      5 * componentSize!.height / 6,
+      4 * componentSize!.width / 5,
+      componentSize!.height,
     );
-    path.lineTo(0, componentSize.height);
+    path.lineTo(0, componentSize!.height);
     path.close();
     return path;
   }

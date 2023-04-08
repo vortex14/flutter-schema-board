@@ -11,15 +11,15 @@ class OptionIcon extends StatelessWidget {
   final Function onPressed;
 
   const OptionIcon({
-    Key key,
+    Key? key,
     this.color = Colors.grey,
     this.size = 40,
     this.shape = BoxShape.circle,
-    this.tooltip,
-    this.iconData,
+    required this.tooltip,
+    required this.iconData,
     this.iconColor = Colors.black,
     this.iconSize = 20,
-    this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override

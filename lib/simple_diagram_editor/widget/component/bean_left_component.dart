@@ -3,11 +3,11 @@ import 'package:diagram_editor_apps/simple_diagram_editor/widget/component/base_
 import 'package:flutter/material.dart';
 
 class BeanLeftBody extends StatelessWidget {
-  final ComponentData componentData;
+  final ComponentData? componentData;
 
   const BeanLeftBody({
-    Key key,
-    this.componentData,
+     Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -15,9 +15,9 @@ class BeanLeftBody extends StatelessWidget {
     return BaseComponentBody(
       componentData: componentData,
       componentPainter: BeanLeftPainter(
-        color: componentData.data.color,
-        borderColor: componentData.data.borderColor,
-        borderWidth: componentData.data.borderWidth,
+        color: componentData!.data.color,
+        borderColor: componentData!.data.borderColor,
+        borderWidth: componentData!.data.borderWidth,
       ),
     );
   }
@@ -27,7 +27,7 @@ class BeanLeftPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   BeanLeftPainter({
     this.color = Colors.grey,
@@ -67,20 +67,20 @@ class BeanLeftPainter extends CustomPainter {
 
   Path componentPath() {
     Path path = Path();
-    path.moveTo(componentSize.width / 5, 0);
-    path.lineTo(componentSize.width, 0);
-    path.lineTo(componentSize.width, componentSize.height);
-    path.lineTo(componentSize.width / 5, componentSize.height);
+    path.moveTo(componentSize!.width / 5, 0);
+    path.lineTo(componentSize!.width, 0);
+    path.lineTo(componentSize!.width, componentSize!.height);
+    path.lineTo(componentSize!.width / 5, componentSize!.height);
     path.quadraticBezierTo(
       0,
-      5 * componentSize.height / 6,
+      5 * componentSize!.height / 6,
       0,
-      componentSize.height / 2,
+      componentSize!.height / 2,
     );
     path.quadraticBezierTo(
       0,
-      componentSize.height / 6,
-      componentSize.width / 5,
+      componentSize!.height / 6,
+      componentSize!.width / 5,
       0,
     );
     path.close();

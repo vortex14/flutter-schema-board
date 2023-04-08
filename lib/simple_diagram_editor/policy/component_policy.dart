@@ -19,7 +19,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
 
       if (isReadyToConnect) {
         isReadyToConnect = false;
-        bool connected = connectComponents(selectedComponentId, componentId);
+        bool connected = connectComponents(selectedComponentId!, componentId);
         if (connected) {
           print('connected');
           selectedComponentId = null;
@@ -35,7 +35,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomStatePolicy {
     }
   }
 
-  Offset lastFocalPoint;
+  late Offset lastFocalPoint;
 
   @override
   onComponentScaleStart(componentId, details) {

@@ -3,19 +3,19 @@ import 'package:diagram_editor_apps/hierarchical_example/policy/custom_policy.da
 import 'package:flutter/material.dart';
 
 mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
-  Offset lastFocalPoint;
+  late Offset lastFocalPoint;
 
   @override
   onComponentTap(String componentId) {
-    hideComponentHighlight(selectedComponentId);
+    hideComponentHighlight(selectedComponentId!);
     canvasWriter.model.hideAllLinkJoints();
 
     if (isReadyToAddParent) {
-      canvasWriter.model.setComponentParent(selectedComponentId, componentId);
+      canvasWriter.model.setComponentParent(selectedComponentId!, componentId);
       selectedComponentId = null;
       isReadyToAddParent = false;
     } else {
-      bool connected = connectComponents(selectedComponentId, componentId);
+      bool connected = connectComponents(selectedComponentId!, componentId);
       if (connected) {
         selectedComponentId = null;
       } else {

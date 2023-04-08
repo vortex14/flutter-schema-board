@@ -28,7 +28,7 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy, CustomPolicy {
                   Text(
                     componentData.parentId == null
                         ? 'no parent'
-                        : 'parent: ${componentData.parentId.substring(0, 4)}',
+                        : 'parent: ${componentData.parentId!.substring(0, 4)}',
                     style: TextStyle(fontSize: 10),
                   ),
                 ],

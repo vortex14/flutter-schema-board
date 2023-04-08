@@ -5,7 +5,7 @@ class RainbowItem extends StatelessWidget {
   final Color color;
   final double width;
 
-  const RainbowItem({Key key, this.color, this.width}) : super(key: key);
+  const RainbowItem({Key? key, required this.color, required this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class ComplexRainbowComponent extends StatelessWidget {
   final ComponentData componentData;
 
   const ComplexRainbowComponent({
-    Key key,
-    this.componentData,
+    required Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override

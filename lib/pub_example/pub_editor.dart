@@ -96,7 +96,7 @@ class MyPolicySet extends PolicySet
 mixin MyInitPolicy implements InitPolicy {
   @override
   initializeDiagramEditor() {
-    canvasWriter.state.setCanvasColor(Colors.grey[300]);
+    canvasWriter.state.setCanvasColor(Colors.grey[300]!);
   }
 }
 
@@ -127,7 +127,7 @@ mixin MyCanvasPolicy implements CanvasPolicy, CustomPolicy {
   onCanvasTapUp(TapUpDetails details) {
     canvasWriter.model.hideAllLinkJoints();
     if (selectedComponentId != null) {
-      hideComponentHighlight(selectedComponentId);
+      hideComponentHighlight(selectedComponentId!);
     } else {
       canvasWriter.model.addComponent(
         ComponentData(
@@ -144,14 +144,14 @@ mixin MyCanvasPolicy implements CanvasPolicy, CustomPolicy {
 // Mixin where component behaviour is defined. In this example it is the movement, highlight and connecting two components.
 mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
   // variable used to calculate delta offset to move the component.
-  Offset lastFocalPoint;
+  late Offset lastFocalPoint;
 
   @override
   onComponentTap(String componentId) {
     canvasWriter.model.hideAllLinkJoints();
 
-    bool connected = connectComponents(selectedComponentId, componentId);
-    hideComponentHighlight(selectedComponentId);
+    bool connected = connectComponents(selectedComponentId!, componentId);
+    hideComponentHighlight(selectedComponentId!);
     if (!connected) {
       highlightComponent(componentId);
     }
@@ -159,7 +159,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
 
   @override
   onComponentLongPress(String componentId) {
-    hideComponentHighlight(selectedComponentId);
+    hideComponentHighlight(selectedComponentId!);
     canvasWriter.model.hideAllLinkJoints();
     canvasWriter.model.removeComponent(componentId);
   }
@@ -210,7 +210,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
 
 // You can create your own Policy to define own variables and functions with canvasReader and canvasWriter.
 mixin CustomPolicy implements PolicySet {
-  String selectedComponentId;
+  String? selectedComponentId;
 
   highlightComponent(String componentId) {
     canvasReader.model.getComponent(componentId).data.showHighlight();

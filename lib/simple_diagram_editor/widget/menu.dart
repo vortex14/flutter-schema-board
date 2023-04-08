@@ -7,8 +7,8 @@ class DraggableMenu extends StatelessWidget {
   final MyPolicySet myPolicySet;
 
   const DraggableMenu({
-    Key key,
-    this.myPolicySet,
+    Key? key,
+    required this.myPolicySet,
   }) : super(key: key);
 
   @override
@@ -88,9 +88,9 @@ class DraggableComponent extends StatelessWidget {
   final ComponentData componentData;
 
   const DraggableComponent({
-    Key key,
-    this.myPolicySet,
-    this.componentData,
+    Key? key,
+    required this.myPolicySet,
+    required this.componentData,
   }) : super(key: key);
 
   @override

@@ -12,7 +12,7 @@ class ComplexDiagramEditor extends StatefulWidget {
 
 class _ComplexDiagramEditorState extends State<ComplexDiagramEditor> {
   MyPolicySet myPolicySet = MyPolicySet();
-  DiagramEditorContext diagramEditorContext;
+  late DiagramEditorContext diagramEditorContext;
 
   @override
   void initState() {
@@ -110,7 +110,7 @@ class MyPolicySet extends PolicySet
 mixin MyInitPolicy implements InitPolicy {
   @override
   initializeDiagramEditor() {
-    canvasWriter.state.setCanvasColor(Colors.grey[300]);
+    canvasWriter.state.setCanvasColor(Colors.grey[300]!!);
   }
 }
 
@@ -119,7 +119,7 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy, CustomPolicy {
   Widget showComponentBody(ComponentData componentData) {
     switch (componentData.type) {
       case 'rainbow':
-        return ComplexRainbowComponent(componentData: componentData);
+        return ComplexRainbowComponent(componentData: componentData, key: null,);
         break;
       case 'random':
         return RandomComponent(componentData: componentData);
@@ -144,7 +144,7 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy, CustomPolicy {
 mixin MyCanvasPolicy implements CanvasPolicy, CustomPolicy {
   @override
   onCanvasTapUp(TapUpDetails details) {
-    hideComponentHighlight(selectedComponentId);
+    hideComponentHighlight(selectedComponentId!);
     selectedComponentId = null;
     canvasWriter.model.hideAllLinkJoints();
 
@@ -161,14 +161,14 @@ mixin MyCanvasPolicy implements CanvasPolicy, CustomPolicy {
 }
 
 mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
-  Offset lastFocalPoint;
+  Offset? lastFocalPoint;
 
   @override
   onComponentTap(String componentId) {
-    hideComponentHighlight(selectedComponentId);
+    hideComponentHighlight(selectedComponentId!);
     canvasWriter.model.hideAllLinkJoints();
 
-    bool connected = connectComponents(selectedComponentId, componentId);
+    bool connected = connectComponents(selectedComponentId!, componentId);
     if (connected) {
       selectedComponentId = null;
     } else {
@@ -179,7 +179,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
 
   @override
   onComponentLongPress(String componentId) {
-    hideComponentHighlight(selectedComponentId);
+    hideComponentHighlight(selectedComponentId!);
     selectedComponentId = null;
     canvasWriter.model.hideAllLinkJoints();
     canvasWriter.model.removeComponent(componentId);
@@ -192,7 +192,7 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
 
   @override
   onComponentScaleUpdate(componentId, details) {
-    Offset positionDelta = details.localFocalPoint - lastFocalPoint;
+    Offset positionDelta = details.localFocalPoint - lastFocalPoint!;
 
     canvasWriter.model.moveComponent(componentId, positionDelta);
 
@@ -233,16 +233,16 @@ mixin MyComponentPolicy implements ComponentPolicy, CustomPolicy {
 }
 
 mixin CustomPolicy implements PolicySet {
-  String selectedComponentId;
+  String? selectedComponentId;
 
   highlightComponent(String componentId) {
     canvasReader.model.getComponent(componentId).data.showHighlight();
     canvasReader.model.getComponent(componentId).updateComponent();
   }
 
-  hideComponentHighlight(String componentId) {
+  hideComponentHighlight(String? componentId) {
     if (selectedComponentId != null) {
-      canvasReader.model.getComponent(componentId).data.hideHighlight();
+      canvasReader.model.getComponent(componentId!).data.hideHighlight();
       canvasReader.model.getComponent(componentId).updateComponent();
     }
   }

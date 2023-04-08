@@ -6,8 +6,8 @@ class RhomboidBody extends StatelessWidget {
   final ComponentData componentData;
 
   const RhomboidBody({
-    Key key,
-    this.componentData,
+     Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class RhomboidPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   RhomboidPainter({
     this.color = Colors.grey,
@@ -67,10 +67,10 @@ class RhomboidPainter extends CustomPainter {
 
   Path componentPath() {
     Path path = Path();
-    path.moveTo(componentSize.width / 6, 0);
-    path.lineTo(componentSize.width, 0);
-    path.lineTo(5 * componentSize.width / 6, componentSize.height);
-    path.lineTo(0, componentSize.height);
+    path.moveTo(componentSize!.width / 6, 0);
+    path.lineTo(componentSize!.width, 0);
+    path.lineTo(5 * componentSize!.width / 6, componentSize!.height);
+    path.lineTo(0, componentSize!.height);
     path.close();
     return path;
   }

@@ -1,7 +1,7 @@
 import 'package:diagram_editor/diagram_editor.dart';
 
 mixin CustomPolicy implements PolicySet {
-  String selectedComponentId;
+  String? selectedComponentId;
 
   bool isReadyToAddParent = false;
 
