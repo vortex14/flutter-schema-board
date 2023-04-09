@@ -5,8 +5,8 @@ class PortComponent extends StatelessWidget {
   final ComponentData componentData;
 
   const PortComponent({
-    Key key,
-    @required this.componentData,
+    Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -19,19 +19,19 @@ class PortComponent extends StatelessWidget {
         break;
       case PortState.shown:
         return Port(
-          color: portData.color,
+          color: portData.color!,
           borderColor: Colors.black,
         );
         break;
       case PortState.selected:
         return Port(
-          color: portData.color,
+          color: portData.color!,
           borderColor: Colors.cyan,
         );
         break;
       case PortState.highlighted:
         return Port(
-          color: portData.color,
+          color: portData.color!,
           borderColor: Colors.amber,
         );
         break;
@@ -45,7 +45,7 @@ class Port extends StatelessWidget {
   final Color borderColor;
 
   const Port({
-    Key key,
+    Key? key,
     this.color = Colors.white,
     this.borderColor = Colors.black,
   }) : super(key: key);
@@ -68,10 +68,10 @@ class Port extends StatelessWidget {
 enum PortState { hidden, shown, selected, highlighted }
 
 class PortData {
-  final String type;
-  final Color color;
-  final Size size;
-  final Alignment alignmentOnComponent;
+  final String? type;
+  final Color? color;
+  final Size? size;
+  final Alignment? alignmentOnComponent;
 
   PortState portState = PortState.shown;
 

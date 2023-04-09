@@ -6,8 +6,8 @@ class BendLeftBody extends StatelessWidget {
   final ComponentData componentData;
 
   const BendLeftBody({
-    Key key,
-    this.componentData,
+    Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class BendLeftPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   BendLeftPainter({
     this.color = Colors.grey,
@@ -67,31 +67,31 @@ class BendLeftPainter extends CustomPainter {
 
   Path componentPath() {
     Path path = Path();
-    path.moveTo(componentSize.width / 10, 0);
-    path.lineTo(componentSize.width, 0);
+    path.moveTo(componentSize!.width / 10, 0);
+    path.lineTo(componentSize!.width, 0);
     path.quadraticBezierTo(
-      9 * componentSize.width / 10,
-      componentSize.height / 5,
-      9 * componentSize.width / 10,
-      componentSize.height / 2,
+      9 * componentSize!.width / 10,
+      componentSize!.height / 5,
+      9 * componentSize!.width / 10,
+      componentSize!.height / 2,
     );
     path.quadraticBezierTo(
-      9 * componentSize.width / 10,
-      4 * componentSize.height / 5,
-      componentSize.width,
-      componentSize.height,
+      9 * componentSize!.width / 10,
+      4 * componentSize!.height / 5,
+      componentSize!.width,
+      componentSize!.height,
     );
-    path.lineTo(componentSize.width / 10, componentSize.height);
+    path.lineTo(componentSize!.width / 10, componentSize!.height);
     path.quadraticBezierTo(
       0,
-      4 * componentSize.height / 5,
+      4 * componentSize!.height / 5,
       0,
-      componentSize.height / 2,
+      componentSize!.height / 2,
     );
     path.quadraticBezierTo(
       0,
-      componentSize.height / 5,
-      componentSize.width / 10,
+      componentSize!.height / 5,
+      componentSize!.width / 10,
       0,
     );
     path.close();

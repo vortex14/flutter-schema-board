@@ -17,10 +17,10 @@ mixin MyCanvasPolicy implements CanvasPolicy, CustomPolicy {
 
     if (isReadyToAddParent) {
       isReadyToAddParent = false;
-      canvasWriter.model.updateComponent(selectedComponentId);
+      canvasWriter.model.updateComponent(selectedComponentId!);
     } else {
       if (selectedComponentId != null) {
-        hideComponentHighlight(selectedComponentId);
+        hideComponentHighlight(selectedComponentId!);
         selectedComponentId = null;
       } else {
         canvasWriter.model.addComponent(

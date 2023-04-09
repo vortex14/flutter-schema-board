@@ -59,10 +59,8 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<LineType>(
                           value: lineTypeDropdown,
-                          onChanged: (LineType newValue) {
-                            setState(() {
-                              lineTypeDropdown = newValue;
-                            });
+                          onChanged: ( newValue) {
+                            setState(() => lineTypeDropdown = newValue!);
                           },
                           items: LineType.values.map((LineType lineType) {
                             return DropdownMenuItem<LineType>(
@@ -153,9 +151,9 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<ArrowType>(
                           value: arrowTypeDropdown,
-                          onChanged: (ArrowType newValue) {
+                          onChanged: ( newValue) {
                             setState(() {
-                              arrowTypeDropdown = newValue;
+                              arrowTypeDropdown = newValue!;
                             });
                           },
                           items: ArrowType.values.map((ArrowType arrowType) {
@@ -247,9 +245,9 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<ArrowType>(
                           value: backArrowTypeDropdown,
-                          onChanged: (ArrowType newValue) {
+                          onChanged: ( newValue) {
                             setState(() {
-                              backArrowTypeDropdown = newValue;
+                              backArrowTypeDropdown = newValue!;
                             });
                           },
                           items: ArrowType.values.map((ArrowType arrowType) {
@@ -428,21 +426,21 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
 }
 
 class ShowItem extends StatelessWidget {
-  final String text;
-  final bool isShown;
-  final Function onTap;
+  final String? text;
+  final bool? isShown;
+  final Function? onTap;
 
-  const ShowItem({Key key, this.text, this.isShown, this.onTap})
+  const ShowItem({Key? key, this.text, this.isShown, this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: () => onTap,
       child: Row(
         children: [
-          Text(text),
-          Icon(isShown ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down),
+          Text(text!),
+          Icon(isShown! ? Icons.keyboard_arrow_up : Icons.keyboard_arrow_down),
         ],
       ),
     );

@@ -6,8 +6,8 @@ class DocumentBody extends StatelessWidget {
   final ComponentData componentData;
 
   const DocumentBody({
-    Key key,
-    this.componentData,
+    Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class DocumentPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   DocumentPainter({
     this.color = Colors.grey,
@@ -68,20 +68,20 @@ class DocumentPainter extends CustomPainter {
   Path componentPath() {
     Path path = Path();
     path.moveTo(0, 0);
-    path.lineTo(componentSize.width, 0);
-    path.lineTo(componentSize.width, 9 * componentSize.height / 10);
+    path.lineTo(componentSize!.width, 0);
+    path.lineTo(componentSize!.width, 9 * componentSize!.height / 10);
     path.quadraticBezierTo(
-      3 * componentSize.width / 4,
-      7 * componentSize.height / 10,
-      componentSize.width / 2,
-      9 * componentSize.height / 10,
+      3 * componentSize!.width / 4,
+      7 * componentSize!.height / 10,
+      componentSize!.width / 2,
+      9 * componentSize!.height / 10,
     );
 
     path.quadraticBezierTo(
-      componentSize.width / 4,
-      11 * componentSize.height / 10,
+      componentSize!.width / 4,
+      11 * componentSize!.height / 10,
       0,
-      9 * componentSize.height / 10,
+      9 * componentSize!.height / 10,
     );
 
     path.close();

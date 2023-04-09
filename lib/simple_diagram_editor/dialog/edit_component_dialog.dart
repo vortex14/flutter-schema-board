@@ -57,9 +57,9 @@ void showEditComponentDialog(
               Container(
                 child: DropdownButton<Alignment>(
                   value: textAlignmentDropdown,
-                  onChanged: (Alignment newValue) {
+                  onChanged: ( newValue) {
                     setState(() {
-                      textAlignmentDropdown = newValue;
+                      textAlignmentDropdown = newValue!;
                     });
                   },
                   items: alignmentValues.map((Alignment alignment) {
@@ -78,9 +78,9 @@ void showEditComponentDialog(
                   Container(
                     child: DropdownButton<double>(
                       value: textSizeDropdown,
-                      onChanged: (double newValue) {
+                      onChanged: ( newValue) {
                         setState(() {
-                          textSizeDropdown = newValue;
+                          textSizeDropdown = newValue!;
                         });
                       },
                       items: textSizeValues.map((double textSize) {

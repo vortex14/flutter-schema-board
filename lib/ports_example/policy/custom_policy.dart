@@ -22,7 +22,7 @@ mixin CustomPolicy implements PolicySet {
     canvasWriter.model.removeAllComponents();
   }
 
-  String selectedPortId;
+  String? selectedPortId;
   bool arePortsVisible = true;
 
   bool canConnectThesePorts(String portId1, String portId2) {
@@ -109,12 +109,12 @@ mixin CustomPolicy implements PolicySet {
     int zOrder = canvasWriter.model.moveComponentToTheFront(componentData.id);
     componentData.data.portData.forEach((PortData port) {
       var newPort = ComponentData(
-        size: port.size,
+        size: port.size!,
         type: 'port',
         data: port,
         position: componentData.position +
-            componentData.getPointOnComponent(port.alignmentOnComponent) -
-            port.size.center(Offset.zero),
+            componentData.getPointOnComponent(port.alignmentOnComponent!) -
+            port.size!.center(Offset.zero),
       );
       canvasWriter.model.addComponent(newPort);
       canvasWriter.model.setComponentParent(newPort.id, componentData.id);
@@ -177,7 +177,7 @@ mixin CustomPolicy implements PolicySet {
 
   PortData _getPortData(Alignment alignment) {
     var portType = ['R', 'G', 'B'][math.Random().nextInt(3)];
-    Color portColor;
+    Color? portColor;
     switch (portType) {
       case 'R':
         portColor = Colors.red;
@@ -191,7 +191,7 @@ mixin CustomPolicy implements PolicySet {
     }
     var portData = PortData(
       type: portType,
-      color: portColor,
+      color: portColor!,
       size: Size(20, 20),
       alignmentOnComponent: alignment,
     );

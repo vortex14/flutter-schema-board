@@ -3,18 +3,18 @@ import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_component_
 import 'package:flutter/material.dart';
 
 class BaseComponentBody extends StatelessWidget {
-  final ComponentData componentData;
-  final CustomPainter componentPainter;
+  final ComponentData? componentData;
+  final CustomPainter? componentPainter;
 
   const BaseComponentBody({
-    Key key,
-    this.componentData,
+     Key? key,
+    required this.componentData,
     this.componentPainter,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final MyComponentData customData = componentData.data;
+    final MyComponentData customData = componentData?.data;
 
     return GestureDetector(
       child: CustomPaint(

@@ -68,7 +68,7 @@ mixin MyComponentDesignPolicy implements ComponentDesignPolicy {
         return OvalBody(componentData: componentData);
         break;
       default:
-        return null;
+        return Container();
         break;
     }
   }

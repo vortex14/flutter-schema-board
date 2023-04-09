@@ -6,8 +6,8 @@ class NoCornerRectBody extends StatelessWidget {
   final ComponentData componentData;
 
   const NoCornerRectBody({
-    Key key,
-    @required this.componentData,
+    Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class NoCornerRectPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   NoCornerRectPainter({
     this.color = Colors.grey,
@@ -67,14 +67,14 @@ class NoCornerRectPainter extends CustomPainter {
 
   Path componentPath() {
     Path path = Path();
-    path.moveTo(componentSize.width / 8, 0);
-    path.lineTo(7 * componentSize.width / 8, 0);
-    path.lineTo(componentSize.width, componentSize.height / 8);
-    path.lineTo(componentSize.width, 7 * componentSize.height / 8);
-    path.lineTo(7 * componentSize.width / 8, componentSize.height);
-    path.lineTo(componentSize.width / 8, componentSize.height);
-    path.lineTo(0, 7 * componentSize.height / 8);
-    path.lineTo(0, componentSize.height / 8);
+    path.moveTo(componentSize!.width / 8, 0);
+    path.lineTo(7 * componentSize!.width / 8, 0);
+    path.lineTo(componentSize!.width, componentSize!.height / 8);
+    path.lineTo(componentSize!.width, 7 * componentSize!.height / 8);
+    path.lineTo(7 * componentSize!.width / 8, componentSize!.height);
+    path.lineTo(componentSize!.width / 8, componentSize!.height);
+    path.lineTo(0, 7 * componentSize!.height / 8);
+    path.lineTo(0, componentSize!.height / 8);
     path.close();
     return path;
   }

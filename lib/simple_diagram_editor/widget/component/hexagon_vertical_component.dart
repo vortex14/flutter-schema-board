@@ -6,8 +6,8 @@ class HexagonVerticalBody extends StatelessWidget {
   final ComponentData componentData;
 
   const HexagonVerticalBody({
-    Key key,
-    this.componentData,
+     Key? key,
+    required this.componentData,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class HexagonVerticalPainter extends CustomPainter {
   final Color color;
   final Color borderColor;
   final double borderWidth;
-  Size componentSize;
+  Size? componentSize;
 
   HexagonVerticalPainter({
     this.color = Colors.grey,
@@ -67,12 +67,12 @@ class HexagonVerticalPainter extends CustomPainter {
 
   Path componentPath() {
     Path path = Path();
-    path.moveTo(componentSize.width / 2, 0);
-    path.lineTo(componentSize.width, componentSize.height / 4);
-    path.lineTo(componentSize.width, 3 * componentSize.height / 4);
-    path.lineTo(componentSize.width / 2, componentSize.height);
-    path.lineTo(0, 3 * componentSize.height / 4);
-    path.lineTo(0, componentSize.height / 4);
+    path.moveTo(componentSize!.width / 2, 0);
+    path.lineTo(componentSize!.width, componentSize!.height / 4);
+    path.lineTo(componentSize!.width, 3 * componentSize!.height / 4);
+    path.lineTo(componentSize!.width / 2, componentSize!.height);
+    path.lineTo(0, 3 * componentSize!.height / 4);
+    path.lineTo(0, componentSize!.height / 4);
     path.close();
     return path;
   }
