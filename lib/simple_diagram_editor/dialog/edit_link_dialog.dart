@@ -27,10 +27,8 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
   bool isColorEditShown = false;
   bool isLabelsEditShown = false;
 
-  final startLabelController =
-      TextEditingController(text: customData.startLabel ?? '');
-  final endLabelController =
-      TextEditingController(text: customData.endLabel ?? '');
+  final startLabelController = TextEditingController(text: customData.startLabel);
+  final endLabelController = TextEditingController(text: customData.endLabel);
 
   showDialog(
     barrierDismissible: false,
@@ -47,10 +45,10 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                 Text('Edit link style', style: TextStyle(fontSize: 20)),
                 SizedBox(height: 8),
                 ShowItem(
-                    text: 'Line',
-                    isShown: isLineEditShown,
-                    onTap: () =>
-                        setState(() => isLineEditShown = !isLineEditShown)),
+                  text: 'Line',
+                  isShown: isLineEditShown,
+                  onTap: () => setState(() => isLineEditShown = !isLineEditShown),
+                ),
                 Visibility(
                   visible: isLineEditShown,
                   child: Column(
@@ -59,7 +57,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<LineType>(
                           value: lineTypeDropdown,
-                          onChanged: ( newValue) {
+                          onChanged: (newValue) {
                             setState(() => lineTypeDropdown = newValue!);
                           },
                           items: LineType.values.map((LineType lineType) {
@@ -91,19 +89,16 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child: Center(
-                                    child: Icon(Icons.remove, size: 12))),
+                                child: Center(child: Icon(Icons.remove, size: 12))),
                           ),
                           Column(
                             children: [
-                              Text(
-                                  '${double.parse(lineWidthPick.toStringAsFixed(1))}'),
+                              Text('${double.parse(lineWidthPick.toStringAsFixed(1))}'),
                               Slider(
                                 value: lineWidthPick,
                                 onChanged: (double newValue) {
                                   setState(() {
-                                    lineWidthPick = double.parse(
-                                        newValue.toStringAsFixed(1));
+                                    lineWidthPick = double.parse(newValue.toStringAsFixed(1));
                                   });
                                 },
                                 min: minLineWidth,
@@ -129,8 +124,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child:
-                                    Center(child: Icon(Icons.add, size: 12))),
+                                child: Center(child: Icon(Icons.add, size: 12))),
                           ),
                         ],
                       ),
@@ -141,8 +135,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                 ShowItem(
                     text: 'Front arrow',
                     isShown: isFrontArrowEditShown,
-                    onTap: () => setState(
-                        () => isFrontArrowEditShown = !isFrontArrowEditShown)),
+                    onTap: () => setState(() => isFrontArrowEditShown = !isFrontArrowEditShown)),
                 Visibility(
                   visible: isFrontArrowEditShown,
                   child: Column(
@@ -151,7 +144,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<ArrowType>(
                           value: arrowTypeDropdown,
-                          onChanged: ( newValue) {
+                          onChanged: (newValue) {
                             setState(() {
                               arrowTypeDropdown = newValue!;
                             });
@@ -185,19 +178,16 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child: Center(
-                                    child: Icon(Icons.remove, size: 12))),
+                                child: Center(child: Icon(Icons.remove, size: 12))),
                           ),
                           Column(
                             children: [
-                              Text(
-                                  '${double.parse(arrowSizePick.toStringAsFixed(1))}'),
+                              Text('${double.parse(arrowSizePick.toStringAsFixed(1))}'),
                               Slider(
                                 value: arrowSizePick,
                                 onChanged: (double newValue) {
                                   setState(() {
-                                    arrowSizePick = double.parse(
-                                        newValue.toStringAsFixed(1));
+                                    arrowSizePick = double.parse(newValue.toStringAsFixed(1));
                                   });
                                 },
                                 min: minArrowSize,
@@ -223,8 +213,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child:
-                                    Center(child: Icon(Icons.add, size: 12))),
+                                child: Center(child: Icon(Icons.add, size: 12))),
                           ),
                         ],
                       ),
@@ -232,11 +221,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(
-                    text: 'Back arrow',
-                    isShown: isBackArrowEditShown,
-                    onTap: () => setState(
-                        () => isBackArrowEditShown = !isBackArrowEditShown)),
+                ShowItem(text: 'Back arrow', isShown: isBackArrowEditShown, onTap: () => setState(() => isBackArrowEditShown = !isBackArrowEditShown)),
                 Visibility(
                   visible: isBackArrowEditShown,
                   child: Column(
@@ -245,7 +230,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                       Container(
                         child: DropdownButton<ArrowType>(
                           value: backArrowTypeDropdown,
-                          onChanged: ( newValue) {
+                          onChanged: (newValue) {
                             setState(() {
                               backArrowTypeDropdown = newValue!;
                             });
@@ -279,19 +264,16 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child: Center(
-                                    child: Icon(Icons.remove, size: 12))),
+                                child: Center(child: Icon(Icons.remove, size: 12))),
                           ),
                           Column(
                             children: [
-                              Text(
-                                  '${double.parse(backArrowSizePick.toStringAsFixed(1))}'),
+                              Text('${double.parse(backArrowSizePick.toStringAsFixed(1))}'),
                               Slider(
                                 value: backArrowSizePick,
                                 onChanged: (double newValue) {
                                   setState(() {
-                                    backArrowSizePick = double.parse(
-                                        newValue.toStringAsFixed(1));
+                                    backArrowSizePick = double.parse(newValue.toStringAsFixed(1));
                                   });
                                 },
                                 min: minArrowSize,
@@ -317,8 +299,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                                 ),
                                 width: 32,
                                 height: 32,
-                                child:
-                                    Center(child: Icon(Icons.add, size: 12))),
+                                child: Center(child: Icon(Icons.add, size: 12))),
                           ),
                         ],
                       ),
@@ -326,11 +307,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(
-                    text: 'Link color',
-                    isShown: isColorEditShown,
-                    onTap: () =>
-                        setState(() => isColorEditShown = !isColorEditShown)),
+                ShowItem(text: 'Link color', isShown: isColorEditShown, onTap: () => setState(() => isColorEditShown = !isColorEditShown)),
                 Visibility(
                   visible: isColorEditShown,
                   child: Row(
@@ -341,8 +318,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                         onTap: () async {
                           var pickedColor =
                               // showPickColorDialog(context, linkData);
-                              showPickColorDialog(
-                                  context, color, 'Pick a line color');
+                              showPickColorDialog(context, color, 'Pick a line color');
                           color = await pickedColor;
                           setState(() {});
                         },
@@ -360,11 +336,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(
-                    text: 'Link labels',
-                    isShown: isLabelsEditShown,
-                    onTap: () =>
-                        setState(() => isLabelsEditShown = !isLabelsEditShown)),
+                ShowItem(text: 'Link labels', isShown: isLabelsEditShown, onTap: () => setState(() => isLabelsEditShown = !isLabelsEditShown)),
                 Visibility(
                   visible: isLabelsEditShown,
                   child: Column(
@@ -428,15 +400,19 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
 class ShowItem extends StatelessWidget {
   final String? text;
   final bool? isShown;
-  final Function? onTap;
+  final Function() onTap;
 
-  const ShowItem({Key? key, this.text, this.isShown, this.onTap})
-      : super(key: key);
+  const ShowItem({
+    Key? key,
+    required this.text,
+    required this.isShown,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap,
+      onTap: () => onTap(),
       child: Row(
         children: [
           Text(text!),
