@@ -13,3 +13,14 @@ There are 6 examples of usage of `diagram_editor` library:
 - **Hierarchical components** shows how a component can be assigned as a child to another one.
 - **Complex example** shows in funny way that every component is a widget (everything in Flutter is a widget). So you can design a component as you wish.
 - **Grip snapping example** contains a grid and when is a component near a grid line while moving then it snaps to it.
+
+
+=========== for ios and mac add in Podfile ===========
+target 'Runner' do
+  use_frameworks! <--------------------------- добавить
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  # target 'RunnerTests' do <--------------------------- ? закомментить
+  #   inherit! :search_paths <--------------------------- ? закомментить
+  # end <--------------------------- ? закомментить
+end
+==============================================

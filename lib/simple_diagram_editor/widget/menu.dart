@@ -1,4 +1,4 @@
-import 'package:diagram_editor/diagram_editor.dart';
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_component_data.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/my_policy_set.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +60,7 @@ class DraggableMenu extends StatelessWidget {
         return ComponentData(
           size: Size(16, 16),
           minSize: Size(4, 4),
-          data: MyComponentData(
+          data: MyCustomComponentData(
             color: Colors.black,
             borderWidth: 0.0,
           ),
@@ -71,7 +71,7 @@ class DraggableMenu extends StatelessWidget {
         return ComponentData(
           size: Size(120, 72),
           minSize: Size(80, 64),
-          data: MyComponentData(
+          data: MyCustomComponentData(
             color: Colors.white,
             borderColor: Colors.black,
             borderWidth: 2.0,

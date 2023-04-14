@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'package:diagram_editor/diagram_editor.dart';
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/hierarchical_example/component_data.dart';
 import 'package:diagram_editor_apps/hierarchical_example/policy/custom_policy.dart';
 import 'package:flutter/material.dart';

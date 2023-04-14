@@ -1,4 +1,4 @@
-import 'package:diagram_editor/diagram_editor.dart';
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_component_data.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/custom_policy.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ mixin MyCanvasWidgetsPolicy implements CanvasWidgetsPolicy, CustomStatePolicy {
     String componentId = canvasWriter.model.addComponent(
       ComponentData(
         position: componentPosition,
-        data: MyComponentData.copy(componentData.data),
+        data: MyCustomComponentData.copy(componentData.data),
         size: componentData.size,
         minSize: componentData.minSize,
         type: componentData.type,

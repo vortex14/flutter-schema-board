@@ -1,9 +1,19 @@
-import 'package:diagram_editor/diagram_editor.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
+import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_link_data.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/minimap_policy.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/my_policy_set.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/widget/menu.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/widget/option_icon.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
+
+import '../data/custom_component_data.dart';
 
 class SimpleDemoEditor extends StatefulWidget {
   @override
@@ -26,9 +36,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
     diagramEditorContext = DiagramEditorContext(
       policySet: myPolicySet,
     );
-    diagramEditorContextMiniMap = DiagramEditorContext.withSharedModel(
-        diagramEditorContext!,
-        policySet: miniMapPolicySet);
+    diagramEditorContextMiniMap = DiagramEditorContext.withSharedModel(diagramEditorContext!, policySet: miniMapPolicySet);
 
     super.initState();
   }
@@ -84,9 +92,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                         color: Colors.grey[300]!,
                         child: Padding(
                           padding: EdgeInsets.all(4),
-                          child: Text(isMiniMapVisible
-                              ? 'hide minimap'
-                              : 'show minimap'),
+                          child: Text(isMiniMapVisible ? 'hide minimap' : 'show minimap'),
                         ),
                       ),
                     )
@@ -102,14 +108,14 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                     children: [
                       OptionIcon(
                         color: Colors.grey.withOpacity(0.7),
-                        iconData:
-                            isOptionsVisible ? Icons.menu_open : Icons.menu,
+                        iconData: isOptionsVisible ? Icons.menu_open : Icons.menu,
                         shape: BoxShape.rectangle,
                         onPressed: () {
                           setState(() {
                             isOptionsVisible = !isOptionsVisible;
                           });
-                        }, tooltip: '',
+                        },
+                        tooltip: '',
                       ),
                       SizedBox(width: 8),
                       Visibility(
@@ -132,17 +138,12 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
-                              tooltip: myPolicySet.isGridVisible
-                                  ? 'hide grid'
-                                  : 'show grid',
+                              tooltip: myPolicySet.isGridVisible ? 'hide grid' : 'show grid',
                               color: Colors.grey.withOpacity(0.7),
-                              iconData: myPolicySet.isGridVisible
-                                  ? Icons.grid_off
-                                  : Icons.grid_on,
+                              iconData: myPolicySet.isGridVisible ? Icons.grid_off : Icons.grid_on,
                               onPressed: () {
                                 setState(() {
-                                  myPolicySet.isGridVisible =
-                                      !myPolicySet.isGridVisible;
+                                  myPolicySet.isGridVisible = !myPolicySet.isGridVisible;
                                 });
                               },
                             ),
@@ -159,37 +160,30 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                                         tooltip: 'select all',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.all_inclusive,
-                                        onPressed: () =>
-                                            myPolicySet.selectAll(),
+                                        onPressed: () => myPolicySet.selectAll(),
                                       ),
                                       SizedBox(height: 8),
                                       OptionIcon(
                                         tooltip: 'duplicate selected',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.copy,
-                                        onPressed: () =>
-                                            myPolicySet.duplicateSelected(),
+                                        onPressed: () => myPolicySet.duplicateSelected(),
                                       ),
                                       SizedBox(height: 8),
                                       OptionIcon(
                                         tooltip: 'remove selected',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.delete,
-                                        onPressed: () =>
-                                            myPolicySet.removeSelected(),
+                                        onPressed: () => myPolicySet.removeSelected(),
                                       ),
                                     ],
                                   ),
                                 ),
                                 SizedBox(height: 8),
                                 OptionIcon(
-                                  tooltip: myPolicySet.isMultipleSelectionOn
-                                      ? 'cancel multiselection'
-                                      : 'enable multiselection',
+                                  tooltip: myPolicySet.isMultipleSelectionOn ? 'cancel multiselection' : 'enable multiselection',
                                   color: Colors.grey.withOpacity(0.7),
-                                  iconData: myPolicySet.isMultipleSelectionOn
-                                      ? Icons.group_work
-                                      : Icons.group_work_outlined,
+                                  iconData: myPolicySet.isMultipleSelectionOn ? Icons.group_work : Icons.group_work_outlined,
                                   onPressed: () {
                                     setState(() {
                                       if (myPolicySet.isMultipleSelectionOn) {
@@ -201,6 +195,65 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                                   },
                                 ),
                               ],
+                            ),
+                            SizedBox(width: 8),
+                            OptionIcon(
+                              tooltip: 'import schema',
+                              color: Colors.grey.withOpacity(0.7),
+                              iconData: Icons.input_rounded,
+                              onPressed: () async {
+                                // all OS
+                                FilePickerResult? result = await FilePicker.platform.pickFiles();
+                                if (result != null) {
+                                  File file = File(result.files.single.path!);
+                                  final jsonString = await file.readAsString();
+                                  final jsonMap = jsonDecode(jsonString);
+
+                                  final List<ComponentData> components = (jsonMap["components"] as List).map((component) {
+                                    return ComponentData.fromJson(component, decodeCustomComponentData: MyCustomComponentData.fromJson);
+                                  }).toList();
+                                  final List<LinkData> links = (jsonMap["links"] as List).map((link) {
+                                    return LinkData.fromJson(link, decodeCustomLinkData: MyLinkData.fromJson);
+                                  }).toList();
+
+                                  for (var component in components) {
+                                    diagramEditorContext!.canvasModel.addComponent(diagramEditorContext!.canvasModel.components[component.id] = component);
+                                  }
+                                  for (var link in links) {
+                                    diagramEditorContext!.canvasModel.addLink(diagramEditorContext!.canvasModel.links[link.id] = link);
+                                  }
+                                } else {
+                                  // User canceled the picker
+                                }
+                              },
+                            ),
+                            SizedBox(width: 8),
+                            OptionIcon(
+                              tooltip: 'export schema',
+                              color: Colors.grey.withOpacity(0.7),
+                              iconData: Icons.output_rounded,
+                              onPressed: () async {
+                                final jsonMap = diagramEditorContext!.canvasModel.getDiagram().toJson();
+                                final String _jsonString = jsonEncode(jsonMap);
+                                Uint8List uint8List = Uint8List.fromList(_jsonString.codeUnits);
+
+                                // Andriod, Ios
+                                if (Platform.isAndroid || Platform.isIOS) {
+                                  ShareFilesAndScreenshotWidgets().shareFile("Сохранить", "schema.json", uint8List, "application/json", text: "");
+
+                                  // Windows, MacOS
+                                } else if (Platform.isMacOS || Platform.isWindows) {
+                                  String? outputFile = await FilePicker.platform.saveFile(
+                                    dialogTitle: 'Please select an output file:',
+                                    fileName: 'Schema.json',
+                                  );
+                                  if (outputFile == null) {
+                                  } else {
+                                    final jsonFile = File(outputFile);
+                                    jsonFile.writeAsBytes(uint8List);
+                                  }
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -236,8 +289,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           color: Colors.grey[300]!,
                           child: Padding(
                             padding: EdgeInsets.all(4),
-                            child:
-                                Text(isMenuVisible ? 'hide menu' : 'show menu'),
+                            child: Text(isMenuVisible ? 'hide menu' : 'show menu'),
                           ),
                         ),
                       ),
