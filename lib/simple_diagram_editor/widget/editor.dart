@@ -1,19 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
-import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_link_data.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/minimap_policy.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/my_policy_set.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/widget/menu.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/widget/option_icon.dart';
+import 'package:diagram_editor_apps/utils/import/import_interface.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
-
-import '../data/custom_component_data.dart';
+import '../../utils/export/export_interface.dart';
 
 class SimpleDemoEditor extends StatefulWidget {
   @override
@@ -201,59 +196,14 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                               tooltip: 'import schema',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.input_rounded,
-                              onPressed: () async {
-                                // all OS
-                                FilePickerResult? result = await FilePicker.platform.pickFiles();
-                                if (result != null) {
-                                  File file = File(result.files.single.path!);
-                                  final jsonString = await file.readAsString();
-                                  final jsonMap = jsonDecode(jsonString);
-
-                                  final List<ComponentData> components = (jsonMap["components"] as List).map((component) {
-                                    return ComponentData.fromJson(component, decodeCustomComponentData: MyCustomComponentData.fromJson);
-                                  }).toList();
-                                  final List<LinkData> links = (jsonMap["links"] as List).map((link) {
-                                    return LinkData.fromJson(link, decodeCustomLinkData: MyLinkData.fromJson);
-                                  }).toList();
-
-                                  for (var component in components) {
-                                    diagramEditorContext!.canvasModel.addComponent(diagramEditorContext!.canvasModel.components[component.id] = component);
-                                  }
-                                  for (var link in links) {
-                                    diagramEditorContext!.canvasModel.addLink(diagramEditorContext!.canvasModel.links[link.id] = link);
-                                  }
-                                } else {
-                                  // User canceled the picker
-                                }
-                              },
+                              onPressed: () async => _importFile(),
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
                               tooltip: 'export schema',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.output_rounded,
-                              onPressed: () async {
-                                final jsonMap = diagramEditorContext!.canvasModel.getDiagram().toJson();
-                                final String _jsonString = jsonEncode(jsonMap);
-                                Uint8List uint8List = Uint8List.fromList(_jsonString.codeUnits);
-
-                                // Andriod, Ios
-                                if (Platform.isAndroid || Platform.isIOS) {
-                                  ShareFilesAndScreenshotWidgets().shareFile("Сохранить", "schema.json", uint8List, "application/json", text: "");
-
-                                  // Windows, MacOS
-                                } else if (Platform.isMacOS || Platform.isWindows) {
-                                  String? outputFile = await FilePicker.platform.saveFile(
-                                    dialogTitle: 'Please select an output file:',
-                                    fileName: 'Schema.json',
-                                  );
-                                  if (outputFile == null) {
-                                  } else {
-                                    final jsonFile = File(outputFile);
-                                    jsonFile.writeAsBytes(uint8List);
-                                  }
-                                }
-                              },
+                              onPressed: () async => _exportFile(),
                             ),
                           ],
                         ),
@@ -319,5 +269,20 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
         ),
       ),
     );
+  }
+
+  void _importFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    if (result != null) {
+      PlatformImport().platformImport(result, diagramEditorContext!);
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  void _exportFile() async {
+    final jsonMap = diagramEditorContext!.canvasModel.getDiagram().toJson();
+    final String jsonString = jsonEncode(jsonMap);
+    PlatformExport().platformExport(jsonString);
   }
 }
