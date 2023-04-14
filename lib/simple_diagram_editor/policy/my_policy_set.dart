@@ -1,4 +1,4 @@
-import 'package:diagram_editor/diagram_editor.dart';
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/canvas_policy.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/canvas_widgets_policy.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/component_design_policy.dart';

@@ -1,4 +1,4 @@
-import 'package:diagram_editor/diagram_editor.dart';
+import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/data/custom_component_data.dart';
 import 'package:flutter/material.dart';
 
@@ -87,7 +87,7 @@ mixin CustomStatePolicy implements PolicySet {
       type: componentData.type,
       size: componentData.size,
       minSize: componentData.minSize,
-      data: MyComponentData.copy(componentData.data),
+      data: MyCustomComponentData.copy(componentData.data),
       position: componentData.position + Offset(20, 20),
     );
     String id = canvasWriter.model.addComponent(cd);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class MyLinkData {
   String startLabel;
   String endLabel;
@@ -12,4 +14,18 @@ class MyLinkData {
           startLabel: customData.startLabel,
           endLabel: customData.endLabel,
         );
+
+  Map<String, dynamic> toJson() {
+    return {
+      'startLabel': startLabel,
+      'endLabel': endLabel,
+    };
+  }
+
+  factory MyLinkData.fromJson(Map<String, dynamic> map) {
+    return MyLinkData(
+      startLabel: map['startLabel'] ?? '',
+      endLabel: map['endLabel'] ?? '',
+    );
+  }
 }
