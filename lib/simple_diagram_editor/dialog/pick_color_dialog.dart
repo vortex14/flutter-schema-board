@@ -11,7 +11,7 @@ Future<Color> showPickColorDialog(
     useSafeArea: true,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Pick a line color'),
+        title: const Text('Выберете цвет линии'),
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: currentColor,

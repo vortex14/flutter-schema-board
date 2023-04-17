@@ -87,7 +87,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                         color: Colors.grey[300]!,
                         child: Padding(
                           padding: EdgeInsets.all(4),
-                          child: Text(isMiniMapVisible ? 'hide minimap' : 'show minimap'),
+                          child: Text(isMiniMapVisible ? 'Показать мини-карту' : 'Скрыть миникарту'),
                         ),
                       ),
                     )
@@ -119,21 +119,21 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             OptionIcon(
-                              tooltip: 'reset view',
+                              tooltip: 'Сбросить вид',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.replay,
                               onPressed: () => myPolicySet.resetView(),
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
-                              tooltip: 'delete all',
+                              tooltip: 'Удалить всё',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.delete_forever,
                               onPressed: () => myPolicySet.removeAll(),
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
-                              tooltip: myPolicySet.isGridVisible ? 'hide grid' : 'show grid',
+                              tooltip: myPolicySet.isGridVisible ? 'Скрыть сетку' : 'Показать сетку',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: myPolicySet.isGridVisible ? Icons.grid_off : Icons.grid_on,
                               onPressed: () {
@@ -152,21 +152,21 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       OptionIcon(
-                                        tooltip: 'select all',
+                                        tooltip: 'Выбрать всё',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.all_inclusive,
                                         onPressed: () => myPolicySet.selectAll(),
                                       ),
                                       SizedBox(height: 8),
                                       OptionIcon(
-                                        tooltip: 'duplicate selected',
+                                        tooltip: 'Дублировать выделенное',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.copy,
                                         onPressed: () => myPolicySet.duplicateSelected(),
                                       ),
                                       SizedBox(height: 8),
                                       OptionIcon(
-                                        tooltip: 'remove selected',
+                                        tooltip: 'Удалить выбранное',
                                         color: Colors.grey.withOpacity(0.7),
                                         iconData: Icons.delete,
                                         onPressed: () => myPolicySet.removeSelected(),
@@ -176,7 +176,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                                 ),
                                 SizedBox(height: 8),
                                 OptionIcon(
-                                  tooltip: myPolicySet.isMultipleSelectionOn ? 'cancel multiselection' : 'enable multiselection',
+                                  tooltip: myPolicySet.isMultipleSelectionOn ? 'Отключить множественный выбор' : 'Включить множественный выбор',
                                   color: Colors.grey.withOpacity(0.7),
                                   iconData: myPolicySet.isMultipleSelectionOn ? Icons.group_work : Icons.group_work_outlined,
                                   onPressed: () {
@@ -193,14 +193,14 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
-                              tooltip: 'import schema',
+                              tooltip: 'Импортировать схему',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.input_rounded,
                               onPressed: () async => _importFile(),
                             ),
                             SizedBox(width: 8),
                             OptionIcon(
-                              tooltip: 'export schema',
+                              tooltip: 'Экспортировать схему',
                               color: Colors.grey.withOpacity(0.7),
                               iconData: Icons.output_rounded,
                               onPressed: () async => _exportFile(),
@@ -239,7 +239,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           color: Colors.grey[300]!,
                           child: Padding(
                             padding: EdgeInsets.all(4),
-                            child: Text(isMenuVisible ? 'hide menu' : 'show menu'),
+                            child: Text(isMenuVisible ? 'Показать меню' : 'Скрыть меню'),
                           ),
                         ),
                       ),

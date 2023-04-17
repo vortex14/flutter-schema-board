@@ -44,12 +44,12 @@ void showEditComponentDialog(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(width: 600),
-              Text('Edit component', style: TextStyle(fontSize: 20)),
+              Text('Редактировать компонент', style: TextStyle(fontSize: 20)),
               TextField(
                 controller: textController,
                 maxLines: 1,
                 decoration: InputDecoration(
-                  labelText: 'Text',
+                  labelText: 'Текст',
                   fillColor: Colors.white,
                 ),
               ),
@@ -63,9 +63,23 @@ void showEditComponentDialog(
                     });
                   },
                   items: alignmentValues.map((Alignment alignment) {
+
+                    var NewMap = {
+                      Alignment.topLeft.toString() : "Сверху слева",
+                      Alignment.topCenter.toString(): "Сверх по центру",
+                      Alignment.topRight.toString(): "Сверх справа",
+                      Alignment.centerLeft.toString(): "В центре слева",
+                      Alignment.center.toString() :"По центру",
+                      Alignment.centerRight.toString() : "По центру справа",
+                      Alignment.bottomLeft.toString(): "Снизу слева",
+                      Alignment.bottomCenter.toString(): "Снизу по центру",
+                      Alignment.bottomRight.toString(): "Снизу справа"
+                    };
+                    var newTextValue = NewMap[alignment.toString()];
+
                     return DropdownMenuItem<Alignment>(
                       value: alignment,
-                      child: Text('$alignment'),
+                      child: Text('$newTextValue'),
                     );
                   }).toList(),
                 ),
@@ -73,7 +87,7 @@ void showEditComponentDialog(
               SizedBox(height: 8),
               Row(
                 children: [
-                  Text('Font size:'),
+                  Text('Размер шрифта:'),
                   SizedBox(width: 8),
                   Container(
                     child: DropdownButton<double>(
@@ -96,12 +110,12 @@ void showEditComponentDialog(
               SizedBox(height: 16),
               Row(
                 children: [
-                  Text('Component color:'),
+                  Text('Цвет компонента:'),
                   SizedBox(width: 16),
                   GestureDetector(
                     onTap: () async {
                       var pickedColor = showPickColorDialog(
-                          context, color, 'Pick a component color');
+                          context, color, 'Выберите цвет компонента');
                       color = await pickedColor;
                       setState(() {});
                     },
@@ -120,12 +134,12 @@ void showEditComponentDialog(
               SizedBox(height: 8),
               Row(
                 children: [
-                  Text('Border color:'),
+                  Text('Цвет границы:'),
                   SizedBox(width: 16),
                   GestureDetector(
                     onTap: () async {
                       var pickedColor = showPickColorDialog(context,
-                          borderColor, 'Pick a component border color');
+                          borderColor, 'Выберете цвет границы');
                       borderColor = await pickedColor;
                       setState(() {});
                     },
@@ -145,7 +159,7 @@ void showEditComponentDialog(
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Border width:'),
+                  Text('Ширина границы:'),
                   Row(
                     children: [
                       GestureDetector(
@@ -217,7 +231,7 @@ void showEditComponentDialog(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('DISCARD'),
+              child: Text('Отмена'),
             ),
             TextButton(
               onPressed: () {
@@ -230,7 +244,7 @@ void showEditComponentDialog(
                 componentData.updateComponent();
                 Navigator.of(context).pop();
               },
-              child: Text('SAVE'),
+              child: Text('Сохранить'),
             )
           ],
         );

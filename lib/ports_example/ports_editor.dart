@@ -36,7 +36,7 @@ class _PortsDiagramEditorState extends State<PortsDiagramEditor> {
                     width: 80,
                     height: 32,
                     color: Colors.red,
-                    child: Center(child: Text('delete all')),
+                    child: Center(child: Text('Удалить всё')),
                   ),
                 ),
               ),
@@ -52,7 +52,7 @@ class _PortsDiagramEditorState extends State<PortsDiagramEditor> {
                     children: [
                       Icon(Icons.arrow_back, size: 16),
                       SizedBox(width: 8),
-                      Text('BACK TO MENU'),
+                      Text('Вернуться в меню'),
                     ],
                   ),
                   onPressed: () => Navigator.pop(context),

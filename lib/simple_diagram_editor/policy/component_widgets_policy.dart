@@ -40,7 +40,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.delete_forever,
-            tooltip: 'delete',
+            tooltip: 'Удалить',
             size: 40,
             onPressed: () {
               canvasWriter.model.removeComponent(componentData.id);
@@ -51,7 +51,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.copy,
-            tooltip: 'duplicate',
+            tooltip: 'Продублировать',
             size: 40,
             onPressed: () {
               String newId = duplicate(componentData);
@@ -65,7 +65,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.edit,
-            tooltip: 'edit',
+            tooltip: 'Редактировать',
             size: 40,
             onPressed: () => showEditComponentDialog(context, componentData),
           ),
@@ -73,7 +73,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.link_off,
-            tooltip: 'remove links',
+            tooltip: 'Удалить ссылки',
             size: 40,
             onPressed: () =>
                 canvasWriter.model.removeComponentConnections(componentData.id),
@@ -94,7 +94,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_upward,
-            tooltip: 'bring to front',
+            tooltip: 'Поднять наверх',
             size: 24,
             shape: BoxShape.rectangle,
             onPressed: () =>
@@ -104,7 +104,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_downward,
-            tooltip: 'move to back',
+            tooltip: 'Переместить назад',
             size: 24,
             shape: BoxShape.rectangle,
             onPressed: () =>
@@ -114,7 +114,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_right_alt,
-            tooltip: 'connect',
+            tooltip: 'Соединить',
             size: 40,
             onPressed: () {
               isReadyToConnect = true;
@@ -189,7 +189,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.delete_forever,
-            tooltip: 'delete',
+            tooltip: 'Удалить',
             size: 32,
             onPressed: () {
               canvasWriter.model.removeComponent(componentData.id);
@@ -200,7 +200,7 @@ mixin MyComponentWidgetsPolicy
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_right_alt,
-            tooltip: 'connect',
+            tooltip: 'Соединить',
             size: 32,
             onPressed: () {
               isReadyToConnect = true;
