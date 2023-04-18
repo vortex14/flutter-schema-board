@@ -87,7 +87,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                         color: Colors.grey[300]!,
                         child: Padding(
                           padding: EdgeInsets.all(4),
-                          child: Text(isMiniMapVisible ? 'Показать мини-карту' : 'Скрыть миникарту'),
+                          child: Text(isMiniMapVisible ? 'Скрыть миникарту' : 'Показать мини-карту'),
                         ),
                       ),
                     )
@@ -239,7 +239,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                           color: Colors.grey[300]!,
                           child: Padding(
                             padding: EdgeInsets.all(4),
-                            child: Text(isMenuVisible ? 'Показать меню' : 'Скрыть меню'),
+                            child: Text(isMenuVisible ? 'Скрыть меню' : 'Показать меню'),
                           ),
                         ),
                       ),
