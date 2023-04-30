@@ -1,4 +1,3 @@
-
 import '../../diagram_editor.dart';
 import '../abstraction_layer/rw/canvas_reader.dart';
 import '../abstraction_layer/rw/canvas_writer.dart';
@@ -64,12 +63,10 @@ class DiagramEditorContext {
   }
 
   CanvasReader _getReader() {
-    return CanvasReader(CanvasModelReader(canvasModel, canvasState),
-        CanvasStateReader(canvasState));
+    return CanvasReader(CanvasModelReader(canvasModel, canvasState), CanvasStateReader(canvasState));
   }
 
   CanvasWriter _getWriter() {
-    return CanvasWriter(CanvasModelWriter(canvasModel, canvasState),
-        CanvasStateWriter(canvasState));
+    return CanvasWriter(CanvasModelWriter(canvasModel, canvasState), CanvasStateWriter(canvasState));
   }
 }

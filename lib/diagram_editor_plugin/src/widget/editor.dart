@@ -1,6 +1,7 @@
 import 'package:diagram_editor_apps/diagram_editor_plugin/src/widget/canvas.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 import '../../diagram_editor.dart';
 import '../canvas_context/canvas_model.dart';
