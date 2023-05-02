@@ -42,10 +42,10 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(width: 600),
-                Text('Edit link style', style: TextStyle(fontSize: 20)),
+                Text('Редактировать стиль связи', style: TextStyle(fontSize: 20)),
                 SizedBox(height: 8),
                 ShowItem(
-                  text: 'Line',
+                  text: 'Линия',
                   isShown: isLineEditShown,
                   onTap: () => setState(() => isLineEditShown = !isLineEditShown),
                 ),
@@ -133,7 +133,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
                 ShowItem(
-                    text: 'Front arrow',
+                    text: 'Передняя стрелка',
                     isShown: isFrontArrowEditShown,
                     onTap: () => setState(() => isFrontArrowEditShown = !isFrontArrowEditShown)),
                 Visibility(
@@ -221,7 +221,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(text: 'Back arrow', isShown: isBackArrowEditShown, onTap: () => setState(() => isBackArrowEditShown = !isBackArrowEditShown)),
+                ShowItem(text: 'Задняя стрелка', isShown: isBackArrowEditShown, onTap: () => setState(() => isBackArrowEditShown = !isBackArrowEditShown)),
                 Visibility(
                   visible: isBackArrowEditShown,
                   child: Column(
@@ -307,7 +307,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(text: 'Link color', isShown: isColorEditShown, onTap: () => setState(() => isColorEditShown = !isColorEditShown)),
+                ShowItem(text: 'Цвет связи', isShown: isColorEditShown, onTap: () => setState(() => isColorEditShown = !isColorEditShown)),
                 Visibility(
                   visible: isColorEditShown,
                   child: Row(
@@ -318,7 +318,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                         onTap: () async {
                           var pickedColor =
                               // showPickColorDialog(context, linkData);
-                              showPickColorDialog(context, color, 'Pick a line color');
+                              showPickColorDialog(context, color, 'Выберите цвет линии');
                           color = await pickedColor;
                           setState(() {});
                         },
@@ -336,7 +336,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   ),
                 ),
                 Divider(color: Colors.black, height: 8, thickness: 1),
-                ShowItem(text: 'Link labels', isShown: isLabelsEditShown, onTap: () => setState(() => isLabelsEditShown = !isLabelsEditShown)),
+                ShowItem(text: 'Метки связи', isShown: isLabelsEditShown, onTap: () => setState(() => isLabelsEditShown = !isLabelsEditShown)),
                 Visibility(
                   visible: isLabelsEditShown,
                   child: Column(
@@ -346,7 +346,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                         controller: startLabelController,
                         maxLines: 1,
                         decoration: InputDecoration(
-                          labelText: 'Start label',
+                          labelText: 'Начальная метка',
                           fillColor: Colors.white,
                           contentPadding: EdgeInsets.only(left: 13),
                         ),
@@ -355,7 +355,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                         controller: endLabelController,
                         maxLines: 1,
                         decoration: InputDecoration(
-                          labelText: 'End label',
+                          labelText: 'Конечная метка',
                           fillColor: Colors.white,
                           contentPadding: EdgeInsets.only(left: 13),
                         ),
@@ -371,7 +371,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text('DISCARD'),
+                child: Text('Отмена'),
               ),
               TextButton(
                 onPressed: () {
@@ -387,7 +387,7 @@ void showEditLinkDialog(BuildContext context, LinkData linkData) {
                   linkData.updateLink();
                   Navigator.of(context).pop();
                 },
-                child: Text('SAVE'),
+                child: Text('Сохранить'),
               )
             ],
           );

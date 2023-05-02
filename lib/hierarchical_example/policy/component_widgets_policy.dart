@@ -31,7 +31,7 @@ mixin MyComponentWidgetsPolicy implements ComponentWidgetsPolicy, CustomPolicy {
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.delete_forever,
-            tooltip: 'delete',
+            tooltip: 'Удалить',
             size: 40,
             onPressed: () {
               canvasWriter.model.removeComponent(componentData.id);
@@ -42,7 +42,7 @@ mixin MyComponentWidgetsPolicy implements ComponentWidgetsPolicy, CustomPolicy {
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.person_add,
-            tooltip: 'add parent',
+            tooltip: 'Добавить родителя',
             size: 40,
             onPressed: () {
               isReadyToAddParent = true;
@@ -53,7 +53,7 @@ mixin MyComponentWidgetsPolicy implements ComponentWidgetsPolicy, CustomPolicy {
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.person_remove,
-            tooltip: 'remove parent',
+            tooltip: 'Удалить родителя',
             size: 40,
             onPressed: () {
               canvasWriter.model.removeComponentParent(componentData.id);
@@ -76,7 +76,7 @@ mixin MyComponentWidgetsPolicy implements ComponentWidgetsPolicy, CustomPolicy {
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_upward,
-            tooltip: 'bring to front',
+            tooltip: 'поднять наверх',
             size: 24,
             shape: BoxShape.rectangle,
             onPressed: () =>
@@ -86,7 +86,7 @@ mixin MyComponentWidgetsPolicy implements ComponentWidgetsPolicy, CustomPolicy {
           OptionIcon(
             color: Colors.grey.withOpacity(0.7),
             iconData: Icons.arrow_downward,
-            tooltip: 'move to back',
+            tooltip: 'переместить назад',
             size: 24,
             shape: BoxShape.rectangle,
             onPressed: () =>
