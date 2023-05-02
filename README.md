@@ -15,7 +15,7 @@ There are 6 examples of usage of `diagram_editor` library:
 - **Grip snapping example** contains a grid and when is a component near a grid line while moving then it snaps to it.
 
 
-=========== for ios and mac add in Podfile ===========
+=========== for ios and mac add in Podfile ===================
 target 'Runner' do
   use_frameworks! <--------------------------- добавить
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
@@ -23,4 +23,7 @@ target 'Runner' do
   #   inherit! :search_paths <--------------------------- ? закомментить
   # end <--------------------------- ? закомментить
 end
-==============================================
+===============================================================
+================= build web only with canvasKit ===============
+== debug web: flutter run -d chrome --web-renderer canvaskit ==
+===============================================================

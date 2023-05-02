@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:screenshot/screenshot.dart';
 
 class CanvasState with ChangeNotifier {
+  
+  final ScreenshotController screenshotController = ScreenshotController();
   Offset _position = Offset(0, 0);
   double _scale = 1.0;
 

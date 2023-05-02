@@ -1,4 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:xml/xml.dart' as xml;
+import 'dart:ui' as ui;
+import 'dart:ui';
 
 import 'package:diagram_editor_apps/diagram_editor_plugin/diagram_editor.dart';
 import 'package:diagram_editor_apps/simple_diagram_editor/policy/minimap_policy.dart';
@@ -8,6 +13,10 @@ import 'package:diagram_editor_apps/simple_diagram_editor/widget/option_icon.dar
 import 'package:diagram_editor_apps/utils/import/import_interface.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
+import '../../main.dart';
 import '../../utils/export/export_interface.dart';
 
 class SimpleDemoEditor extends StatefulWidget {
@@ -54,6 +63,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                   ),
                 ),
               ),
+              // minimap
               Positioned(
                 right: 16,
                 top: 16,
@@ -94,6 +104,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                   ],
                 ),
               ),
+              // menu icons
               Align(
                 alignment: Alignment.bottomLeft,
                 child: Padding(
@@ -115,95 +126,112 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                       SizedBox(width: 8),
                       Visibility(
                         visible: isOptionsVisible,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            OptionIcon(
-                              tooltip: 'Сбросить вид',
-                              color: Colors.grey.withOpacity(0.7),
-                              iconData: Icons.replay,
-                              onPressed: () => myPolicySet.resetView(),
-                            ),
-                            SizedBox(width: 8),
-                            OptionIcon(
-                              tooltip: 'Удалить всё',
-                              color: Colors.grey.withOpacity(0.7),
-                              iconData: Icons.delete_forever,
-                              onPressed: () => myPolicySet.removeAll(),
-                            ),
-                            SizedBox(width: 8),
-                            OptionIcon(
-                              tooltip: myPolicySet.isGridVisible ? 'Скрыть сетку' : 'Показать сетку',
-                              color: Colors.grey.withOpacity(0.7),
-                              iconData: myPolicySet.isGridVisible ? Icons.grid_off : Icons.grid_on,
-                              onPressed: () {
-                                setState(() {
-                                  myPolicySet.isGridVisible = !myPolicySet.isGridVisible;
-                                });
-                              },
-                            ),
-                            SizedBox(width: 8),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Visibility(
-                                  visible: myPolicySet.isMultipleSelectionOn,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      OptionIcon(
-                                        tooltip: 'Выбрать всё',
-                                        color: Colors.grey.withOpacity(0.7),
-                                        iconData: Icons.all_inclusive,
-                                        onPressed: () => myPolicySet.selectAll(),
-                                      ),
-                                      SizedBox(height: 8),
-                                      OptionIcon(
-                                        tooltip: 'Дублировать выделенное',
-                                        color: Colors.grey.withOpacity(0.7),
-                                        iconData: Icons.copy,
-                                        onPressed: () => myPolicySet.duplicateSelected(),
-                                      ),
-                                      SizedBox(height: 8),
-                                      OptionIcon(
-                                        tooltip: 'Удалить выбранное',
-                                        color: Colors.grey.withOpacity(0.7),
-                                        iconData: Icons.delete,
-                                        onPressed: () => myPolicySet.removeSelected(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 8),
                                 OptionIcon(
-                                  tooltip: myPolicySet.isMultipleSelectionOn ? 'Отключить множественный выбор' : 'Включить множественный выбор',
+                                  tooltip: 'import schema',
                                   color: Colors.grey.withOpacity(0.7),
-                                  iconData: myPolicySet.isMultipleSelectionOn ? Icons.group_work : Icons.group_work_outlined,
-                                  onPressed: () {
-                                    setState(() {
-                                      if (myPolicySet.isMultipleSelectionOn) {
-                                        myPolicySet.turnOffMultipleSelection();
-                                      } else {
-                                        myPolicySet.turnOnMultipleSelection();
-                                      }
-                                    });
-                                  },
+                                  iconData: Icons.input_rounded,
+                                  onPressed: () async => _importFile(),
+                                ),
+                                SizedBox(width: 8),
+                                OptionIcon(
+                                  tooltip: 'export schema',
+                                  color: Colors.grey.withOpacity(0.7),
+                                  iconData: Icons.output_rounded,
+                                  onPressed: () async => _exportFile(),
+                                ),
+                                SizedBox(width: 8),
+                                OptionIcon(
+                                  tooltip: 'export ',
+                                  color: Colors.grey.withOpacity(0.7),
+                                  iconData: Icons.image_outlined,
+                                  onPressed: () => _exportImageFile(),
                                 ),
                               ],
                             ),
-                            SizedBox(width: 8),
-                            OptionIcon(
-                              tooltip: 'Импортировать схему',
-                              color: Colors.grey.withOpacity(0.7),
-                              iconData: Icons.input_rounded,
-                              onPressed: () async => _importFile(),
-                            ),
-                            SizedBox(width: 8),
-                            OptionIcon(
-                              tooltip: 'Экспортировать схему',
-                              color: Colors.grey.withOpacity(0.7),
-                              iconData: Icons.output_rounded,
-                              onPressed: () async => _exportFile(),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                OptionIcon(
+                                  tooltip: 'reset view',
+                                  color: Colors.grey.withOpacity(0.7),
+                                  iconData: Icons.replay,
+                                  onPressed: () => myPolicySet.resetView(),
+                                ),
+                                SizedBox(width: 8),
+                                OptionIcon(
+                                  tooltip: 'delete all',
+                                  color: Colors.grey.withOpacity(0.7),
+                                  iconData: Icons.delete_forever,
+                                  onPressed: () => myPolicySet.removeAll(),
+                                ),
+                                SizedBox(width: 8),
+                                OptionIcon(
+                                  tooltip: myPolicySet.isGridVisible ? 'hide grid' : 'show grid',
+                                  color: Colors.grey.withOpacity(0.7),
+                                  iconData: myPolicySet.isGridVisible ? Icons.grid_off : Icons.grid_on,
+                                  onPressed: () {
+                                    setState(() {
+                                      myPolicySet.isGridVisible = !myPolicySet.isGridVisible;
+                                    });
+                                  },
+                                ),
+                                SizedBox(width: 8),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Visibility(
+                                      visible: myPolicySet.isMultipleSelectionOn,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          OptionIcon(
+                                            tooltip: 'select all',
+                                            color: Colors.grey.withOpacity(0.7),
+                                            iconData: Icons.all_inclusive,
+                                            onPressed: () => myPolicySet.selectAll(),
+                                          ),
+                                          SizedBox(height: 8),
+                                          OptionIcon(
+                                            tooltip: 'duplicate selected',
+                                            color: Colors.grey.withOpacity(0.7),
+                                            iconData: Icons.copy,
+                                            onPressed: () => myPolicySet.duplicateSelected(),
+                                          ),
+                                          SizedBox(height: 8),
+                                          OptionIcon(
+                                            tooltip: 'remove selected',
+                                            color: Colors.grey.withOpacity(0.7),
+                                            iconData: Icons.delete,
+                                            onPressed: () => myPolicySet.removeSelected(),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(height: 8),
+                                    OptionIcon(
+                                      tooltip: myPolicySet.isMultipleSelectionOn ? 'cancel multiselection' : 'enable multiselection',
+                                      color: Colors.grey.withOpacity(0.7),
+                                      iconData: myPolicySet.isMultipleSelectionOn ? Icons.group_work : Icons.group_work_outlined,
+                                      onPressed: () {
+                                        setState(() {
+                                          if (myPolicySet.isMultipleSelectionOn) {
+                                            myPolicySet.turnOffMultipleSelection();
+                                          } else {
+                                            myPolicySet.turnOnMultipleSelection();
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -212,6 +240,7 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
                   ),
                 ),
               ),
+              // menu objects
               Positioned(
                 top: 0,
                 left: 0,
@@ -284,5 +313,14 @@ class _SimpleDemoEditorState extends State<SimpleDemoEditor> {
     final jsonMap = diagramEditorContext!.canvasModel.getDiagram().toJson();
     final String jsonString = jsonEncode(jsonMap);
     PlatformExport().platformExport(jsonString);
+  }
+
+  void _exportImageFile() async {
+    try {
+      
+      PlatformExport().platformImageExport(diagramEditorContext!.canvasState.screenshotController);
+    } catch (onError) {
+      print(onError);
+    }
   }
 }
